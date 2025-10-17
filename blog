@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenScroll — Explore & Settings</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    /* ====== Reset & Base ====== */
+    :root{
+      --bg:#fbfcfe;
+      --muted:#6b6f76;
+      --accent:#00bcd4;
+      --accent-2:#e53935; /* red accent */
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.6);
+      --radius:12px;
+      --max-width:1200px;
+      --shadow: 0 6px 20px rgba(16,24,40,0.08);
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;background:var(--bg);color:#222;line-height:1.45}
+    a{color:inherit;text-decoration:none}
+    ul{list-style:none}
+
+    /* ====== Top Sub-header ====== */
+    .sub-header {
+      background:#111;
+      color:#fff;
+      padding:8px 0;
+      font-size:13px;
+    }
+    .sub-header .wrap{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 18px;
+      display:flex;
+      justify-content:center;
+      gap:28px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .sub-header a{color:#fff;opacity:.95}
+    .sub-header a:hover{opacity:1;color:var(--accent);}
+
+    /* ====== Main Header ====== */
+    .main-header {
+      background: linear-gradient(90deg,#e6f9fb,#dff8ff 50%, #eafcff);
+      padding:16px 0;
+      box-shadow: 0 2px 8px rgba(16,24,40,0.04);
+      position:sticky;
+      top:0;
+      z-index:60;
+    }
+    .main-header .wrap{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 18px;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      justify-content:space-between;
+    }
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo {
+      width:52px;height:52px;border-radius:10px;
+      background:linear-gradient(180deg,#fff,#f1f7f9);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow: var(--shadow);
+      border:1px solid rgba(0,0,0,0.04);
+    }
+    .logo svg{width:34px;height:34px}
+    .brand h1{font-size:18px;color:#0b2540;letter-spacing:0.2px}
+    .search {
+      flex:1;
+      margin:0 18px;
+      display:flex;
+      justify-content:center;
+    }
+    .search input{
+      width:100%;
+      max-width:540px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:1px solid rgba(11,37,64,0.08);
+      background:#fff;
+      box-shadow: 0 4px 12px rgba(11,37,64,0.03);
+    }
+    .nav {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .nav a{
+      display:inline-flex;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:8px;
+      color:#0b2540;font-weight:600;
+    }
+    .nav a:hover{
+      background:rgba(0,188,212,0.08);
+      color:var(--accent);
+    }
+
+    /* ====== Page Controls (anchor links) ====== */
+    .page-controls{
+      max-width:var(--max-width);
+      margin:22px auto;
+      padding:0 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .controls-left{display:flex;gap:10px;align-items:center}
+    .pill{
+      background:#fff;border-radius:999px;padding:8px 12px;border:1px solid rgba(11,37,64,0.06);
+      box-shadow: 0 4px 12px rgba(11,37,64,0.03);
+      cursor:default;font-weight:600;color:#0b2540;
+    }
+    .controls-right a{
+      display:inline-block;margin-left:8px;padding:8px 14px;border-radius:8px;background:var(--accent);
+      color:white;font-weight:700;text-decoration:none;
+      box-shadow:0 6px 18px rgba(0,188,212,0.18)
+    }
+    .controls-right a.secondary{
+      background:transparent;color:var(--accent);border:1px solid rgba(0,188,212,0.14);
+      box-shadow:none;font-weight:700;
+    }
+
+    /* ====== Ad Banner ====== */
+    .ad-banner{
+      max-width:var(--max-width);
+      margin:18px auto;
+      padding:0 18px;
+    }
+    .ad-card{
+      border-radius:14px;overflow:hidden;
+      background:linear-gradient(90deg,#fff,#fbffff);
+      box-shadow:var(--shadow);
+      border:1px solid rgba(11,37,64,0.04);
+    }
+    .ad-card img{width:100%;display:block;height:220px;object-fit:cover}
+
+    /* ====== Blog Grid ====== */
+    .grid-wrap{
+      max-width:var(--max-width);
+      margin:26px auto 40px;
+      padding:0 18px;
+    }
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:20px;
+    }
+    .card{
+      background:var(--card);
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(11,37,64,0.03);
+      transition: transform .22s ease, box-shadow .22s ease;
+      display:flex;flex-direction:column;
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow: 0 14px 30px rgba(16,24,40,0.08) }
+    .card .media{height:160px;overflow:hidden}
+    .card .media img{width:100%;height:100%;object-fit:cover;display:block}
+    .card .body{padding:14px 16px;flex:1;display:flex;flex-direction:column;gap:8px}
+    .card .title{font-weight:700;color:#0b2540;font-size:16px}
+    .card .desc{color:var(--muted);font-size:14px;height:42px;overflow:hidden}
+    .meta{display:flex;align-items:center;gap:10px;margin-top:auto}
+    .meta img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 2px 8px rgba(11,37,64,0.06)}
+    .meta .by{font-size:13px;color:var(--muted)}
+    .card .actions{padding:12px 16px;border-top:1px solid rgba(11,37,64,0.03);display:flex;gap:10px;justify-content:flex-end}
+    .btn {
+      background:linear-gradient(180deg,#00cfe8,#00bcd4);
+      color:#fff;padding:8px 12px;border-radius:10px;border:none;font-weight:700;cursor:pointer;
+      box-shadow:0 8px 20px rgba(0,188,212,0.12);
+    }
+    .btn.alt{background:transparent;color:#e53935;border:1px solid rgba(229,57,53,0.12);box-shadow:none;font-weight:700}
+
+    /* ====== Settings Section (anchor) ====== */
+    .settings {
+      max-width:var(--max-width);
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+    .settings .box{
+      background:var(--card);border-radius:12px;padding:18px;border:1px solid rgba(11,37,64,0.04);
+      box-shadow:var(--shadow);
+    }
+    .settings h2{color:#0b2540;margin-bottom:12px}
+    .option-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px dashed rgba(11,37,64,0.04)}
+    .option-row:last-child{border-bottom:none}
+    .opt-label{font-weight:600;color:#243142}
+    .opt-desc{font-size:13px;color:var(--muted);margin-top:4px}
+    .option-row input[type=checkbox]{width:18px;height:18px;border-radius:5px;border:1px solid rgba(11,37,64,0.08)}
+
+      * 🌌 ULTRA PRO MAX FOOTER STYLE */
+.footer-pro {
+  position: relative;
+  background: linear-gradient(145deg, #0a0a0a, #111);
+  color: #e0e0e0;
+  padding: 60px 0 20px;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* glass shimmer overlay */
+.footer-pro::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle at center, rgba(0,255,255,0.25), transparent 70%);
+  animation: float 8s ease-in-out infinite alternate;
+  z-index: 0;
+}
+@keyframes float {
+  from { transform: translate(0,0); }
+  to { transform: translate(50px,50px); }
+}
+
+.footer-container {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.footer-brand {
+  flex: 1 1 250px;
+}
+.footer-brand h2 {
+  font-size: 28px;
+  background: linear-gradient(90deg, #00ffff, #00bcd4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+.footer-brand p {
+  color: #aaa;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-nav {
+  flex: 1 1 160px;
+}
+.footer-nav h3 {
+  color: #fff;
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 2px solid #00bcd4;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+.footer-nav ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-nav li {
+  margin-bottom: 10px;
+}
+.footer-nav a {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.3s, transform 0.3s;
+  display: inline-block;
+}
+.footer-nav a:hover {
+  color: #00ffff;
+  transform: translateX(4px);
+}
+
+.footer-social {
+  flex: 1 1 180px;
+}
+.footer-social h3 {
+  margin-bottom: 12px;
+}
+.footer-social .social-icons {
+  display: flex;
+  gap: 12px;
+}
+.footer-social .social-icons a {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,255,255,0.15);
+  color: #00ffff;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.footer-social .social-icons a:hover {
+  background: #00ffff;
+  color: #111;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #00ffff;
+}
+
+/* bottom section */
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 15px;
+  color: #777;
+  font-size: 13px;
+}
+.footer-bottom strong {
+  color: #00ffff;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- SUB-HEADER -->
+  <div class="sub-header">
+    <div class="wrap">
+      <a href="#"><i class="fa-solid fa-user"></i> Sign In</a>
+      <a href="#"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
+      <a href="#"><i class="fa-solid fa-phone"></i> +91 98765 43210</a>
+      <a href="#"><i class="fa-solid fa-envelope"></i> info@openscroll.com</a>
+    </div>
+  </div>
+
+  <!-- MAIN HEADER -->
+  <header class="main-header">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <!-- small unique logo svg (camera + scroll hint) -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OpenScroll logo">
+            <rect x="6" y="10" width="52" height="36" rx="8" fill="#ffffff" stroke="rgba(11,37,64,0.06)"/>
+            <path d="M18 26c0-3 2.2-5 5-5s5 2 5 5" stroke="#00bcd4" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="42" cy="24" r="6" fill="#e53935"/>
+            <circle cx="42" cy="24" r="3" fill="#fff"/>
+          </svg>
+        </div>
+        <div>
+          <h1>OpenScroll</h1>
+        </div>
+      </div>
+
+      <div class="search" role="search">
+        <input type="search" placeholder="Search posts, authors, tags..." aria-label="Search">
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#home"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#explore"><i class="fa-solid fa-compass"></i> Explore</a>
+        <a href="#settings"><i class="fa-solid fa-gear"></i> Settings</a>
+        <a href="#help"><i class="fa-solid fa-circle-question"></i> Help</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PAGE CONTROLS -->
+  <div class="page-controls">
+    <div class="controls-left">
+      <div class="pill">Explore</div>
+      <div class="pill">Latest</div>
+      <div class="pill">Trending</div>
+    </div>
+    <div class="controls-right">
+      <a href="#explore" class="secondary">Browse Posts</a>
+      <a href="#settings">Preferences</a>
+    </div>
+  </div>
+
+  <!-- AD / HERO BANNER -->
+  <div class="ad-banner">
+    <div class="ad-card">
+      <img src="https://picsum.photos/1200/420?random=101" alt="Feature banner">
+    </div>
+  </div>
+
+  <!-- EXPLORE GRID -->
+  <section id="explore" class="grid-wrap" aria-labelledby="explore-heading">
+    <h2 style="max-width:var(--max-width);margin:18px auto 6px;padding:0 18px;color:#0b2540;">Explore — Latest Stories</h2>
+    <p style="max-width:var(--max-width);margin:0 auto 18px;padding:0 18px;color:var(--muted);font-size:14px;">
+      Browse top blog posts curated for creators and readers. Click Read to open a full article.
+    </p>
+
+    <div class="grid">
+      <!-- 15 cards -->
+      <!-- Card 1 -->
+      <article class="card" aria-labelledby="t1">
+        <div class="media"><img src="https://picsum.photos/seed/os1/800/500" alt="Share Your Story"></div>
+        <div class="body">
+          <div class="title" id="t1">Share Your Story</div>
+          <div class="desc">Express your ideas, connect with readers, and inspire others by sharing your blog here.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/men/31.jpg" alt="Author John Carter">
+            <div class="by">John Carter • Jan 12, 2025</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn">Read</button>
+          <button class="btn alt"><i class="fa-solid fa-bell"></i></button>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card" aria-labelledby="t2">
+        <div class="media"><img src="https://picsum.photos/seed/os2/800/500" alt="Tech in 2025"></div>
+        <div class="body">
+          <div class="title" id="t2">Tech in 2025</div>
+          <div class="desc">Explore how AI, design, and digital sharing are changing the way we communicate online.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author Lisa Brown">
+            <div class="by">Lisa Brown • Feb 03, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-thumbs-up"></i></button></div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card" aria-labelledby="t3">
+        <div class="media"><img src="https://picsum.photos/seed/os3/800/500" alt="Explore Nature"></div>
+        <div class="body">
+          <div class="title" id="t3">Explore Nature</div>
+          <div class="desc">Feel the peace of nature and explore stunning destinations around the world.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Author Arjun Mehta">
+            <div class="by">Arjun Mehta • Mar 18, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-comment"></i></button></div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="card" aria-labelledby="t4">
+        <div class="media"><img src="https://picsum.photos/seed/os4/800/500" alt="Fitness First"></div>
+        <div class="body">
+          <div class="title" id="t4">Fitness First</div>
+          <div class="desc">Start your fitness journey and discover the secrets to a healthy and balanced lifestyle.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Author Riya Sen">
+            <div class="by">Riya Sen • Apr 02, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-bell"></i></button></div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="card" aria-labelledby="t5">
+        <div class="media"><img src="https://picsum.photos/seed/os5/800/500" alt="Coding for All"></div>
+        <div class="body">
+          <div class="title" id="t5">Coding for All</div>
+          <div class="desc">Learn programming tips, tricks, and resources to start your developer journey.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Author Rahul Kumar">
+            <div class="by">Rahul Kumar • May 10, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-thumbs-up"></i></button></div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="card" aria-labelledby="t6">
+        <div class="media"><img src="https://picsum.photos/seed/os6/800/500" alt="Design Thinking"></div>
+        <div class="body">
+          <div class="title" id="t6">Design Thinking</div>
+          <div class="desc">Discover creative approaches to solve real-world problems through design.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/women/56.jpg" alt="Author Neha Gupta">
+            <div class="by">Neha Gupta • May 27, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-comment"></i></button></div>
+      </article>
+
+      <!-- Card 7 -->
+      <article class="card" aria-labelledby="t7">
+        <div class="media"><img src="https://picsum.photos/seed/os7/800/500" alt="Travel Diaries"></div>
+        <div class="body">
+          <div class="title" id="t7">Travel Diaries</div>
+          <div class="desc">Read amazing travel experiences and tips from explorers around the globe.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Author Mohit Sharma">
+            <div class="by">Mohit Sharma • Jun 12, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-bell"></i></button></div>
+      </article>
+
+      <!-- Card 8 -->
+      <article class="card" aria-labelledby="t8">
+        <div class="media"><img src="https://picsum.photos/seed/os8/800/500" alt="Food Lovers"></div>
+        <div class="body">
+          <div class="title" id="t8">Food Lovers</div>
+          <div class="desc">Taste the world with delicious recipes and food stories from expert chefs.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/women/18.jpg" alt="Author Rashi Malhotra">
+            <div class="by">Rashi Malhotra • Jul 01, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-thumbs-up"></i></button></div>
+      </article>
+
+      <!-- Card 9 -->
+      <article class="card" aria-labelledby="t9">
+        <div class="media"><img src="https://picsum.photos/seed/os9/800/500" alt="Startup Stories"></div>
+        <div class="body">
+          <div class="title" id="t9">Startup Stories</div>
+          <div class="desc">Learn how new entrepreneurs are changing the world with innovative ideas.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/men/58.jpg" alt="Author Ankit Joshi">
+            <div class="by">Ankit Joshi • Jul 20, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-comment"></i></button></div>
+      </article>
+
+      <!-- Card 10 -->
+      <article class="card" aria-labelledby="t10">
+        <div class="media"><img src="https://picsum.photos/seed/os10/800/500" alt="Movie Buzz"></div>
+        <div class="body">
+          <div class="title" id="t10">Movie Buzz</div>
+          <div class="desc">Latest film reviews, celebrity interviews, and trending entertainment stories.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/women/70.jpg" alt="Author Simran Arora">
+            <div class="by">Simran Arora • Aug 03, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-bell"></i></button></div>
+      </article>
+
+      <!-- Card 11 -->
+      <article class="card" aria-labelledby="t11">
+        <div class="media"><img src="https://picsum.photos/seed/os11/800/500" alt="Gaming Arena"></div>
+        <div class="body">
+          <div class="title" id="t11">Gaming Arena</div>
+          <div class="desc">Get the latest on esports, gaming tips, and live-stream news from creators.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/men/77.jpg" alt="Author Vikram Das">
+            <div class="by">Vikram Das • Aug 21, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-thumbs-up"></i></button></div>
+      </article>
+
+      <!-- Card 12 -->
+      <article class="card" aria-labelledby="t12">
+        <div class="media"><img src="https://picsum.photos/seed/os12/800/500" alt="Explore Settings"></div>
+        <div class="body">
+          <div class="title" id="t12">Explore Settings</div>
+          <div class="desc">Customize your reading and explore preferences directly within your blog account.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Author Nikita Verma">
+            <div class="by">Nikita Verma • Sep 02, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-comment"></i></button></div>
+      </article>
+
+      <!-- Card 13 -->
+      <article class="card" aria-labelledby="t13">
+        <div class="media"><img src="https://picsum.photos/seed/os13/800/500" alt="Creative Ideas"></div>
+        <div class="body">
+          <div class="title" id="t13">Creative Ideas</div>
+          <div class="desc">Inspiration to kickstart your next big post with practical prompts and tips.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="Author Dev Patel">
+            <div class="by">Dev Patel • Sep 16, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-bell"></i></button></div>
+      </article>
+
+      <!-- Card 14 -->
+      <article class="card" aria-labelledby="t14">
+        <div class="media"><img src="https://picsum.photos/seed/os14/800/500" alt="Productivity Hacks"></div>
+        <div class="body">
+          <div class="title" id="t14">Productivity Hacks</div>
+          <div class="desc">Simple habit changes and tools to double down on your writing output.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Author Meera Iyer">
+            <div class="by">Meera Iyer • Oct 04, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-thumbs-up"></i></button></div>
+      </article>
+
+      <!-- Card 15 -->
+      <article class="card" aria-labelledby="t15">
+        <div class="media"><img src="https://picsum.photos/seed/os15/800/500" alt="Community Voices"></div>
+        <div class="body">
+          <div class="title" id="t15">Community Voices</div>
+          <div class="desc">Read powerful short essays and voices from creators across the network.</div>
+          <div class="meta">
+            <img src="https://randomuser.me/api/portraits/men/88.jpg" alt="Author Sameer Khan">
+            <div class="by">Sameer Khan • Oct 10, 2025</div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn">Read</button><button class="btn alt"><i class="fa-solid fa-comment"></i></button></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SETTINGS (no JS) -->
+  <section id="settings" class="settings" aria-labelledby="settings-heading">
+    <div class="box">
+      <h2 id="settings-heading">Settings & Preferences</h2>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:12px">Manage what you receive from OpenScroll — these are just the UI controls (no JS).</p>
+
+      <form>
+        <div class="option-row">
+          <div>
+            <div class="opt-label">Receive Explore Digest</div>
+            <div class="opt-desc">Weekly highlights of trending stories in your feed.</div>
+          </div>
+          <div><input type="checkbox" aria-label="Receive Explore Digest" checked></div>
+        </div>
+
+        <div class="option-row">
+          <div>
+            <div class="opt-label">Email Updates</div>
+            <div class="opt-desc">Occasional product & feature updates via email.</div>
+          </div>
+          <div><input type="checkbox" aria-label="Email Updates"></div>
+        </div>
+
+        <div class="option-row">
+          <div>
+            <div class="opt-label">Personalized Recommendations</div>
+            <div class="opt-desc">Allow activity to personalize suggested posts on Explore.</div>
+          </div>
+          <div><input type="checkbox" aria-label="Personalized Recommendations" checked></div>
+        </div>
+
+        <div class="option-row">
+          <div>
+            <div class="opt-label">Content Alerts (Push)</div>
+            <div class="opt-desc">Get notified when followed authors post new content.</div>
+          </div>
+          <div><input type="checkbox" aria-label="Content Alerts"></div>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:14px;justify-content:flex-end">
+          <button type="submit" class="btn">Save (UI only)</button>
+          <button type="reset" class="btn alt">Reset</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- HELP ANCHOR -->
+  <section id="help" style="max-width:var(--max-width);margin:24px auto;padding:0 18px 36px">
+    <div style="background:var(--card);border-radius:12px;padding:18px;border:1px solid rgba(11,37,64,0.04);box-shadow:var(--shadow)">
+      <h3 style="color:#0b2540">Help & Support</h3>
+      <p style="color:var(--muted)">Need any help? Reach out at <a href="mailto:info@openscroll.com">info@openscroll.com</a> or visit our Help Center.</p>
+    </div>
+  </section>
+
+  <!-- ULTRA PRO HYBRID FOOTER (Light theme variant) -->
+   <!-- FOOTER -->
+<footer class="footer-pro">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h2>OpenScroll</h2>
+      <p>Where ideas take shape, stories unfold, and creators shine. Share your world through OpenScroll.</p>
+    </div>
+
+    <div class="footer-nav">
+      <h3>Explore</h3>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Discover</a></li>
+        <li><a href="#">Creators</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-nav">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h3>Connect</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 <strong>OpenScroll</strong> — Made with ❤️ for creators worldwide.</p>
+  </div>
+</footer>
+
+
+</body>
+</html>
