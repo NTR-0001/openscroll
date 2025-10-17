@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BlogShare | Share Your Voice</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background-color: #f4f7fb;
+      color: #333;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* ---------------- HEADER ---------------- */
+    .header {
+      width: 100%;
+    }
+
+    .sub-header {
+      width: 100%;
+      background-color: black;
+      padding: 8px 0;
+    }
+
+    .sub-header ul {
+      text-align: center;
+    }
+
+    .sub-header ul li {
+      display: inline-block;
+      padding: 0 40px;
+    }
+
+    .sub-header ul li a {
+      color: white;
+      font-weight: 600;
+    }
+
+    .main-header {
+      width: 100%;
+      background-color: skyblue;
+      padding: 10px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-header ul {
+      text-align: center;
+    }
+
+    .main-header ul li {
+      display: inline-block;
+      margin: 0 20px;
+    }
+
+    .main-header ul li a {
+      font-weight: 600;
+      color: #000;
+    }
+
+    .main-header ul li a:hover {
+      color: #fff;
+    }
+
+    .main-header input[type="search"] {
+      padding: 6px 12px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    /* ---------------- AD BANNER ---------------- */
+    .ad-banner {
+      width: 90%;
+      margin: 30px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .ad-banner img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ---------------- BLOG CARDS ---------------- */
+    .main-blog {
+      text-align: center;
+      padding: 30px 0;
+    }
+
+    .card {
+      display: inline-block;
+      background: #ffffff;
+      width: 22%;
+      margin: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      vertical-align: top;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .Topic {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 15px 0 8px;
+      color: #007bff;
+    }
+
+    .description {
+      font-size: 14px;
+      color: #555;
+      margin: 0 10px 15px;
+      height: 50px;
+      overflow: hidden;
+    }
+
+    .creater {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .creater img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+    }
+
+    .cart button {
+      background-color: #00bcd4;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .cart button:hover {
+      background-color: #0097a7;
+    }
+
+    .interaction {
+      padding: 10px 0 20px;
+    }
+
+    .like-btn,
+    .subscribe-btn,
+    .comment-btn {
+      border: none;
+      border-radius: 6px;
+      padding: 8px 14px;
+      color: white;
+      cursor: pointer;
+      margin: 5px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .like-btn {
+      background-color: #ff4d4d;
+    }
+
+    .subscribe-btn {
+      background-color: #ff9800;
+    }
+
+    .comment-btn {
+      background-color: #1e90ff;
+    }
+
+    .like-btn:hover {
+      background-color: #e84118;
+    }
+
+    .subscribe-btn:hover {
+      background-color: #e67e22;
+    }
+
+    .comment-btn:hover {
+      background-color: #187bcd;
+    }
+
+    @media (max-width: 1000px) {
+      .card {
+        width: 45%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        width: 90%;
+      }
+    }
+    * 🌌 ULTRA PRO MAX FOOTER STYLE */
+.footer-pro {
+  position: relative;
+  background: linear-gradient(145deg, #0a0a0a, #111);
+  color: #e0e0e0;
+  padding: 60px 0 20px;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* glass shimmer overlay */
+.footer-pro::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle at center, rgba(0,255,255,0.25), transparent 70%);
+  animation: float 8s ease-in-out infinite alternate;
+  z-index: 0;
+}
+@keyframes float {
+  from { transform: translate(0,0); }
+  to { transform: translate(50px,50px); }
+}
+
+.footer-container {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.footer-brand {
+  flex: 1 1 250px;
+}
+.footer-brand h2 {
+  font-size: 28px;
+  background: linear-gradient(90deg, #00ffff, #00bcd4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+.footer-brand p {
+  color: #aaa;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-nav {
+  flex: 1 1 160px;
+}
+.footer-nav h3 {
+  color: #fff;
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 2px solid #00bcd4;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+.footer-nav ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-nav li {
+  margin-bottom: 10px;
+}
+.footer-nav a {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.3s, transform 0.3s;
+  display: inline-block;
+}
+.footer-nav a:hover {
+  color: #00ffff;
+  transform: translateX(4px);
+}
+
+.footer-social {
+  flex: 1 1 180px;
+}
+.footer-social h3 {
+  margin-bottom: 12px;
+}
+.footer-social .social-icons {
+  display: flex;
+  gap: 12px;
+}
+.footer-social .social-icons a {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,255,255,0.15);
+  color: #00ffff;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.footer-social .social-icons a:hover {
+  background: #00ffff;
+  color: #111;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #00ffff;
+}
+
+/* bottom section */
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 15px;
+  color: #777;
+  font-size: 13px;
+}
+.footer-bottom strong {
+  color: #00ffff;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+</style>
+  </style>
+</head>
+
+<body>
+  <!-- HEADER SECTION -->
+  <div class="header">
+    <!-- Sub Header -->
+    <div class="sub-header">
+      <ul>
+        <li><a href="#"><i class="fa-solid fa-user"></i> Sign In</a></li>
+        <li><a href="#"><i class="fa-solid fa-user-plus"></i> Sign Up</a></li>
+        <li><a href="#"><i class="fa-solid fa-phone"></i> 01234567898</a></li>
+        <li><a href="#"><i class="fa-solid fa-envelope"></i> info@example.com</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Header -->
+    <div class="main-header">
+      <ul>
+        <li><img src="" width="100" alt="Logo"></li>
+        <li><input type="search" name="Search" id="search-bar" placeholder="Search Here"></li>
+        <li><a href="#"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="#"><i class="fa-solid fa-user"></i> You</a></li>
+        <li><a href="#"><i class="fa-solid fa-bell"></i> Subscription</a></li>
+        <li><a href="#"><i class="fa-solid fa-compass"></i> Explore</a></li>
+        <li><a href="#"><i class="fa-solid fa-gear"></i> Setting</a></li>
+        <li><a href="#"><i class="fa-solid fa-circle-question"></i> Help</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- AD BANNER -->
+  <div class="ad-banner">
+    <a href="#"><img src="https://thefederal.com/file/2023/03/ipl-2023-rcb-tickets.jpg" alt="Ad Banner"></a>
+  </div>
+
+  <!-- BLOG SECTION -->
+  <div class="main-blog">
+    <!-- 12 BLOG CARDS -->
+    <div class="card">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" alt="Blog Image"></div>
+      <div class="Topic">Share Your Story</div>
+      <div class="description">Express your ideas, connect with readers, and inspire others by sharing your blog here.</div>
+      <div class="creater"><img src="https://randomuser.me/api/portraits/men/31.jpg" alt=""><span>John Carter</span></div>
+      <div class="cart"><button><i class="fa-solid fa-book-open"></i> Read</button></div>
+      <div class="interaction">
+        <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="subscribe-btn"><i class="fa-solid fa-bell"></i> Subscribe</button>
+        <button class="comment-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1485217988980-11786ced9454" alt="Blog Image"></div>
+      <div class="Topic">Tech in 2025</div>
+      <div class="description">Explore how AI, design, and digital sharing are changing the way we communicate online.</div>
+      <div class="creater"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt=""><span>Lisa Brown</span></div>
+      <div class="cart"><button><i class="fa-solid fa-book-open"></i> Read</button></div>
+      <div class="interaction">
+        <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="subscribe-btn"><i class="fa-solid fa-bell"></i> Subscribe</button>
+        <button class="comment-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+      </div>
+    </div>
+
+    <!-- 10 MORE CARDS -->
+    <div class="card">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Blog Image"></div>
+      <div class="Topic">Explore Nature</div>
+      <div class="description">Feel the peace of nature and explore stunning destinations around the world.</div>
+      <div class="creater"><img src="https://randomuser.me/api/portraits/men/12.jpg" alt=""><span>Arjun Mehta</span></div>
+      <div class="cart"><button><i class="fa-solid fa-book-open"></i> Read</button></div>
+      <div class="interaction">
+        <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="subscribe-btn"><i class="fa-solid fa-bell"></i> Subscribe</button>
+        <button class="comment-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312" alt="Blog Image"></div>
+      <div class="Topic">Fitness First</div>
+      <div class="description">Start your fitness journey and discover the secrets to a healthy and balanced lifestyle.</div>
+      <div class="creater"><img src="https://randomuser.me/api/portraits/women/28.jpg" alt=""><span>Riya Sen</span></div>
+      <div class="cart"><button><i class="fa-solid fa-book-open"></i> Read</button></div>
+      <div class="interaction">
+        <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="subscribe-btn"><i class="fa-solid fa-bell"></i> Subscribe</button>
+        <button class="comment-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d" alt="Blog Image"></div>
+      <div class="Topic">Coding for All</div>
+      <div class="description">Learn programming tips, tricks, and resources to start your developer journey.</div>
+      <div class="creater"><img src="https://randomuser.me/api/portraits/men/33.jpg" alt=""><span>Rahul Kumar</span></div>
+      <div class="cart"><button><i class="fa-solid fa-book-open"></i> Read</button></div>
+      <div class="interaction">
+        <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="subscribe-btn"><i class="fa-solid fa-bell"></i> Subscribe</button>
+        <button class="comment-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2" alt="Blog Image"></div>
+      <div class="Topic">Design Thinking</div>
+      <div class="description">Discover creative approaches to solve real-world problems through design.</div>
+      <div class="creater"><img src="https://randomuser.me/api/portraits/women/56.jpg" alt=""><span>Neha Gupta</span></div>
+      <div class="cart"><button><i class="fa-solid fa-book-open"></i> Read</button></div>
+      <div class="interaction">
+        <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="subscribe-btn"><i class="fa-solid fa-bell"></i> Subscribe</button>
+        <button class="comment-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1473187983305-f615310e7daa" alt="Blog Image"></div>
+      <div class="Topic">Travel Diaries</div>
+      <div class="description">Read amazing travel experiences and tips from explorers around the globe.</div>
+      <div class="creater"><img src="https://randomuser.me/api/portraits/men/42.jpg" alt=""><span>Mohit Sharma</span></div>
+      <div class="cart"><button><i class="fa-solid fa-book-open"></i> Read</button></div>
+      <div class="interaction">
+        <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="subscribe-btn"><i class="fa-solid fa-bell"></i> Subscribe</button>
+        <button class="comment-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2" alt="Blog Image"></div>
+      <div class="Topic">Food Lovers</div>
+      <div class="description">Taste the world with delicious recipes and food stories from expert chefs.</div>
+      <div class="creater"><img src="https://randomuser.me/api/portraits/women/18.jpg" alt=""><span>Rashi Malhotra</span></div>
+      <div class="cart"><button><i class="fa-solid fa-book-open"></i> Read</button></div>
+      <div class="interaction">
+        <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="subscribe-btn"><i class="fa-solid fa-bell"></i> Subscribe</button>
+        <button class="comment-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1481277542470-605612bd2d61" alt="Blog Image"></div>
+      <div class="Topic">Startup Stories</div>
+      <div class="description">Learn how new entrepreneurs are changing the world with innovative ideas.</div>
+      <div class="creater"><img src="https://randomuser.me/api/portraits/men/58.jpg" alt=""><span>Ankit Joshi</span></div>
+      <div class="cart"><button><i class="fa-solid fa-book-open"></i> Read</button></div>
+      <div class="interaction">
+        <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="subscribe-btn"><i class="fa-solid fa-bell"></i> Subscribe</button>
+        <button class="comment-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1470790376778-a9fbc86d70e2" alt="Blog Image"></div>
+      <div class="Topic">Movie Buzz</div>
+      <div class="description">Latest film reviews, celebrity interviews, and trending entertainment stories.</div>
+      <div class="creater"><img src="https://randomuser.me/api/portraits/women/70.jpg" alt=""><span>Simran Arora</span></div>
+      <div class="cart"><button><i class="fa-solid fa-book-open"></i> Read</button></div>
+      <div class="interaction">
+        <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="subscribe-btn"><i class="fa-solid fa-bell"></i> Subscribe</button>
+        <button class="comment-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" alt="Blog Image"></div>
+      <div class="Topic">Gaming Arena</div>
+      <div class="description">Get the latest on esports, gaming tips, and live-stream news from creators.</div>
+      <div class="creater"><img src="https://randomuser.me/api/portraits/men/77.jpg" alt=""><span>Vikram Das</span></div>
+      <div class="cart"><button><i class="fa-solid fa-book-open"></i> Read</button></div>
+      <div class="interaction">
+        <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="subscribe-btn"><i class="fa-solid fa-bell"></i> Subscribe</button>
+        <button class="comment-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7" alt="Blog Image"></div>
+      <div class="Topic">Explore Settings</div>
+      <div class="description">Customize your reading and explore preferences directly within your blog account.</div>
+      <div class="creater"><img src="https://randomuser.me/api/portraits/women/65.jpg" alt=""><span>Nikita Verma</span></div>
+      <div class="cart"><button><i class="fa-solid fa-book-open"></i> Read</button></div>
+      <div class="interaction">
+        <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="subscribe-btn"><i class="fa-solid fa-bell"></i> Subscribe</button>
+        <button class="comment-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+      </div>
+    </div>
+
+  </div>
+  <!-- FOOTER -->
+<footer class="footer-pro">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h2>OpenScroll</h2>
+      <p>Where ideas take shape, stories unfold, and creators shine. Share your world through OpenScroll.</p>
+    </div>
+
+    <div class="footer-nav">
+      <h3>Explore</h3>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Discover</a></li>
+        <li><a href="#">Creators</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-nav">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h3>Connect</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 <strong>OpenScroll</strong> — Made with ❤️ for creators worldwide.</p>
+  </div>
+</footer>
+
+
+</body>
+</html>
